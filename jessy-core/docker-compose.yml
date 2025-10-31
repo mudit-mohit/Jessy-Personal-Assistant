@@ -1,0 +1,20 @@
+services:
+  n8n:
+    build: .
+    ports:
+      - "5678:5678"
+    volumes:
+      - jessy-core_n8n_data:/home/node/.n8n
+      - /Users/appdev/Downloads/jessy-core/real-jessy.db:/home/node/files/real-jessy.db
+    environment:
+      - GENERIC_TIMEZONE=Asia/Kolkata
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=admin
+    restart: always
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+
+volumes:
+  jessy-core_n8n_data:

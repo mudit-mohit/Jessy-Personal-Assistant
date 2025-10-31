@@ -1,0 +1,4 @@
+(speaker ?) This is a test
+(speaker ?) for a speech
+(speaker ?) recognition
+(speaker ?) system.
