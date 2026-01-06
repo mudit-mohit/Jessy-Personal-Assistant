@@ -3,12 +3,14 @@ const cors = require('cors');
 const { exec } = require('child_process');
 const { spawn } = require('child_process');
 const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
+const path = require('node:path');
+const fs = require('node:fs');
 const Database = require('better-sqlite3');
 const dotenv = require('dotenv');
 const { GoogleGenerativeAI } = require('@google/generative-ai');
-const { v4: uuidv4 } = require('uuid');
+const { randomUUID } = require('node:crypto');
+const id = randomUUID();
+console.log(id);
 const fetch =  require("node-fetch");
 
 dotenv.config();
@@ -19,8 +21,8 @@ const PORT = 5000;
 // Serve static files
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Cross-platform DB path
-const dbPath = '/Users/appdev/Downloads/jessy-core/real-jessy.db';
+// Cross-platform DB path - now uses current directory
+const dbPath = path.join(__dirname, 'real-jessy.db');
 const db = new Database(dbPath);
 
 // Set SQLCipher passphrase from .env
@@ -32,13 +34,18 @@ app.use(express.json());
 
 const upload = multer({ dest: 'uploads/' });
 
-const PIPER_BIN = '/Users/appdev/Downloads/jessy-core/piper/build/piper';
-const VOICE_MODEL = '/Users/appdev/Downloads/jessy-core/piper/en_US-amy-medium.onnx';
-const ESPEAK_DATA = '/usr/local/opt/espeak-ng/share/espeak-ng-data';
+// Platform-specific paths - these need to be configured for your system
+const PIPER_BIN = process.platform === 'win32' 
+  ? path.join(__dirname, 'piper', 'piper.exe')
+  : '/Users/appdev/Downloads/jessy-core/piper/build/piper';
+const VOICE_MODEL = path.join(__dirname, 'piper', 'en_US-amy-medium.onnx');
+const ESPEAK_DATA = process.platform === 'win32'
+  ? path.join(__dirname, 'espeak-ng-data')
+  : '/usr/local/opt/espeak-ng/share/espeak-ng-data';
 
 function runPiperTTS(text) {
   return new Promise((resolve, reject) => {
-    const outputFile = path.resolve(__dirname, `tts-output-${uuidv4()}.wav`);
+    const outputFile = path.resolve(__dirname, `tts-output-${randomUUID()}.wav`);
     const cmd = `echo "${text.replace(/"/g, '\\"')}" | "${PIPER_BIN}" --model "${VOICE_MODEL}" --espeak-data "${ESPEAK_DATA}" --output_file "${outputFile}"`;
     console.log("🔊 Piper command:", cmd);
 

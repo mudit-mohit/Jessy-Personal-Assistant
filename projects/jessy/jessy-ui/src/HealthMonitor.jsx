@@ -28,7 +28,7 @@ function HealthMonitor() {
 
     try {
       // 1. Send to your backend (SQLite)
-      const dbRes = await fetch('http://localhost:5678/webhook/health-entry', {
+      const dbRes = await fetch('http://localhost:5678/webhook-test/health-entry', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),

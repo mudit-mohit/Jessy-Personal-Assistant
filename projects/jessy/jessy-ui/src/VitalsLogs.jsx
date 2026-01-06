@@ -19,9 +19,9 @@ const VitalsLogs = () => {
           glucose: item.Glucose || item.glucose || '-',
           bp: item.BP || item.bp || '-',
           oxygen: item.Oxygen || item.oxygen || '-',
-          bodyTemp: item.bodyTemp || item["Body Temp"] || '-',
+          bodyTemp: item.bodyTemp || item["Body Temp"] || item.Temp || '-',
           weight: item.Weight || item.weight || '-',
-          pain: item["Pain/Discomfort"] || item.pain || '-',
+          pain: item["Pain/Discomfort"] || item.pain || item.Pain || '-',
           mood: item.Mood || item.mood || '-',
           notes: item.Notes || item.notes || '-',
         };
@@ -50,9 +50,9 @@ const VitalsLogs = () => {
               <th>Glucose</th>
               <th>BP</th>
               <th>Oxygen</th>
-              <th>Body Temp</th>
+              <th>Temp</th>
               <th>Weight</th>
-              <th>Pain/Discomfort</th>
+              <th>Pain</th>
               <th>Mood</th>
               <th>Notes</th>
             </tr>

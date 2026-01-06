@@ -69,7 +69,6 @@ const CalmProtocol = () => {
         <h2 style="color:#dc3545;">🚨 Calm Protocol Alert 🚨</h2>
         <p><b>User:</b> DemoUser</p>
         <p><b>Reason:</b> post-session anxious</p>
-        <p><b>Time:</b> {{$json["body"]['timestamp']}}</p>
         <p><b>Message:</b> Escalation triggered from Calm Protocol</p>
       </div>
     `
